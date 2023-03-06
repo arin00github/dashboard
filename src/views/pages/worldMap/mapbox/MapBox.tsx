@@ -35,7 +35,7 @@ export const MapBox = () => {
         });
         return new Select({
             condition: click,
-            style: (feature) => {
+            style: (feature: Feature) => {
                 const color = feature.get("COLOR") || "#0460ff";
                 selected.getFill().setColor(color);
                 return selected;
@@ -47,7 +47,7 @@ export const MapBox = () => {
         mapObject?.on("click", (event) => {
             const features = event.map.getFeaturesAtPixel(event.pixel);
             if (features.length <= 1 && features.length > 0) {
-                features.forEach((feature) => {
+                features.forEach((feature: Feature) => {
                     dispatch(putSelectedCountry({ name: feature.get("admin"), iso: feature.get("iso_a2") }));
                     console.log("feature", feature.getProperties());
                 });
@@ -67,7 +67,7 @@ export const MapBox = () => {
             if (features.length >= 1) {
                 overlay?.setPosition(coordinate);
                 const popup = document.getElementById("popup");
-                features.forEach((feature) => {
+                features.forEach((feature: Feature) => {
                     if (popup) {
                         popup.innerHTML = `<div>${feature.get("name")} (${feature.get("iso_a2")})</div>`;
                     }
